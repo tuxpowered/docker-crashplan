@@ -14,8 +14,8 @@ apk add --update bash wget ca-certificates openssl findutils coreutils procps $i
 apk add cpio --update-cache --repository http://dl-3.alpinelinux.org/alpine/edge/community/
 
 mkdir /tmp/crashplan
-
-wget -O- http://download.code42.com/installs/linux/install/${SVC_LEVEL}/${SVC_LEVEL}_${CRASHPLAN_VERSION}_Linux.tgz \
+# wget -O- http://download.code42.com/installs/linux/install/${SVC_LEVEL}/${SVC_LEVEL}_${CRASHPLAN_VERSION}_Linux.tgz \
+wget -O- ${CRASHPLAN_INSTALLER} \
     | tar -xz --strip-components=1 -C /tmp/crashplan
 
 
@@ -25,10 +25,10 @@ cd / && rm -rf /tmp/crashplan
 rm -rf /usr/share/applications
 
 # Bind the UI port 4243 to the container ip
-sed -i "s|</servicePeerConfig>|</servicePeerConfig>\n\t<serviceUIConfig>\n\t\t\
-<serviceHost>0.0.0.0</serviceHost>\n\t\t<servicePort>4243</servicePort>\n\t\t\
-<connectCheck>0</connectCheck>\n\t\t<showFullFilePath>false</showFullFilePath>\n\t\
-</serviceUIConfig>|g" /usr/local/crashplan/conf/default.service.xml
+# sed -i "s|</servicePeerConfig>|</servicePeerConfig>\n\t<serviceUIConfig>\n\t\t\
+# <serviceHost>0.0.0.0</serviceHost>\n\t\t<servicePort>4243</servicePort>\n\t\t\
+# <connectCheck>0</connectCheck>\n\t\t<showFullFilePath>false</showFullFilePath>\n\t\
+# </serviceUIConfig>|g" /usr/local/crashplan/conf/default.service.xml
 
 # Install launchers
 cp /tmp/installation/entrypoint.sh /tmp/installation/crashplan.sh /
